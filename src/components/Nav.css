@@ -1,0 +1,185 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.header{
+    width: 100%;
+    height: 8vh;
+    padding: 0 2em;
+    background-color: rgba(255, 255, 255, .0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* nav left */
+
+.logo-container{
+    /* border: 3px solid yellow; */
+    height: 6vh;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header img{
+    width: 2em;
+    margin-right: 15px;
+}
+
+header h1{
+    color: #fff;
+}
+
+
+/* nav left */
+
+
+
+
+
+
+/* nav medium */
+
+.input-container{
+    /* border: 2px solid orangered; */
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 40%;
+}
+
+.input-container input{
+    margin: 0 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    width: 70%;
+    border-radius: 5px;
+}
+
+.input-container button{
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(45deg, coral, purple);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+/* nav medium */
+
+
+
+/* nav right */
+
+.burger{
+    /* border: 2px solid white; */
+    cursor: pointer;
+    /* display: none; */
+}
+
+
+.burger .bar{
+    width: 25px;
+    height: 2px;
+    margin: 5px 0;
+    background-color: #000;
+    display: block;
+    transition: all ease-in-out .5s;
+}
+
+
+
+.burger.active .bar:nth-child(2){
+    opacity: 0;
+}
+
+.burger.active .bar:nth-child(1){
+    transform: translateY(7px) rotate(45deg);
+}
+
+.burger.active .bar:nth-child(3){
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* nav right */
+
+
+
+
+
+/* nav */
+
+.navBar{
+    /* border: 3px solid purple; */
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 13em;
+    height: auto;
+    padding-bottom: 1em;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 8vh;
+    right: -100%;
+    transition: all ease-in-out .5s;
+    border-radius: 15px;
+}
+
+.navActive{
+    right: 0;
+}
+
+
+
+
+.navBar ul{
+    /* border: 1px solid red; */
+    list-style: none;
+    width: 100%;
+}
+
+
+.navBar ul li{
+    /* border: 3px solid purple; */
+    width: 100%;
+    text-align: center;
+}
+
+.navBar ul li:nth-child(1):hover{
+    border-top-left-radius: 15px;
+}
+
+.navBar ul li:hover{
+    background-color: #1E7DC6;
+
+}
+
+.navBar ul li a{
+    text-decoration: none;
+    color: #000;
+    /* border: 1px solid orange; */
+    display: block;
+    padding: 5px 0;
+    line-height: 1.5;
+}
+
+
+
+
+
+.changeTheme{
+    background: linear-gradient(45deg, coral, purple);
+    /* transition: all ease-in-out .5s; */
+}
+
+/* nav */

@@ -1,0 +1,79 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* done */
+.card{
+    box-shadow: 1px 1px 5px #000;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
+
+
+/* done */
+.upper-box{
+    /* border: 2px solid green; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 40%;
+}
+
+
+/* done */
+.location-box{
+    /* border: 2px solid purple; */
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+/* DONE */
+.location-box h2{
+    font-size: 3em;
+    font-weight: 100;
+}
+
+
+/* done */
+.location-box p{
+    font-size: 4em;
+    font-weight: 700;
+}
+
+
+/* done */
+.bottom-box{
+    /* border: 2px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+/* done */
+.bottom-box h5{
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
+.bottom-box p{
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: 300;
+}

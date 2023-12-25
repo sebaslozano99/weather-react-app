@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import "./Nav.css";
-import ReUsableButton from "./ReUsableButton";
+import ReUsableButton from "../ReUsableButton";
 import { Link } from 'react-router-dom';
 
-const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme}) => {
+const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme, displaySearchBar, setDisplaySearchBar}) => {
 
   const [userSearch, setUserSearch] = useState("");
   const [burgerState, setBurgerState] = useState(false);
@@ -17,6 +17,12 @@ const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme}) => {
 
   function handleSetBurgerState(){
     setBurgerState(!burgerState);
+    setDisplaySearchBar(true);
+  }
+
+  function handleLastSetBurgerState(){
+    setBurgerState(!burgerState);
+    setDisplaySearchBar(false);
   }
 
   return (
@@ -28,13 +34,13 @@ const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme}) => {
       </div>
 
 
-      <form className='input-container' onSubmit={(e) => handleInputSearch(e, userSearch)}>
+      {displaySearchBar && <form className='input-container' onSubmit={(e) => handleInputSearch(e, userSearch)}>
         <input type="text" placeholder='search city' value={userSearch} onChange={(e) => setUserSearch(e.target.value.toLocaleLowerCase())}/>
         <button>Search</button>
-      </form>
+      </form>}
 
 
-      <div className={burgerState ? "burger active" : "burger"}  onClick={handleSetBurgerState}>
+      <div className={burgerState ? "burger active" : "burger"}  onClick={() => setBurgerState(!burgerState)}>
         <span className="bar" style={theme ? {backgroundColor: "#fff"} : {}}></span>
         <span className="bar" style={theme ? {backgroundColor: "#fff"} : {}}></span>
         <span className="bar" style={theme ? {backgroundColor: "#fff"} : {}}></span>
@@ -46,8 +52,8 @@ const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme}) => {
 
         <ul>
             <li><Link to="/" style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>Home</Link></li>
-            <li><Link to="#" style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>About</Link></li>
-            <li><Link to="#" style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>Add Cities</Link></li>
+            <li><Link to="/AddCities" style={theme ? {color: "#fff"}: {}} onClick={handleLastSetBurgerState}>Add/Remove</Link></li>
+            <li><Link to="https://github.com/sebaslozano99" target='blank' style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>Github</Link></li>
         </ul>
 
 

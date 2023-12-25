@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Container.css";
 // import FixedCard from './FixedCard';
-import ReUsableCard from "./ReUsableCard";
+import ReUsableCard from "../ReUsableCard";
 import uuid from 'react-uuid';
 
 const Container = ({fourCities, temp, isLoading, theme, children}) => {

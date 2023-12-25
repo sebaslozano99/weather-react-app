@@ -1,6 +1,6 @@
 import React from 'react';
 // import "./FixedCard.css";
-import Loading from './Loading';
+import Loading from './Loading/Loading';
 
 
 
@@ -13,17 +13,20 @@ import Loading from './Loading';
   const upperBox = {
     width: "100%",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "end",
+    // alignItems: "start",
     height: "40%",
+    // border: "1px solid red",
   }
 
 
   const locationBox = {
-     width: "60%",
+     width: "70%",
      display: "flex",
      flexDirection: "column",
      alignItems: "center",
-     justifyContent: "space-around",
+     justifyContent: "space-evenly",
+    //  border: "1px solid white",
   }
 
 
@@ -34,6 +37,12 @@ import Loading from './Loading';
     alignItems: "center",
   }
 
+  const imageStyle = {
+    width: "auto",
+    height: "90%",
+    // border: "1px solid purple",
+
+  }
 
 const ReUsableCard = ({data, temp, isLoading, theme, title2Size = "3em", locaPsize = "4em", bottomH5Size = "1.5em", bottomPSize = "1.2em"}) => {
   const mainWeather = data?.weather[0]?.main;
@@ -77,7 +86,8 @@ const ReUsableCard = ({data, temp, isLoading, theme, title2Size = "3em", locaPsi
     alignItems: "center",
     justifyContent: "center",
     gap: "2em",
-
+    padding: "0.5em",
+    // border: "2px solid red"
   }
 
   const locationBoxH2 = {
@@ -122,7 +132,7 @@ const ReUsableCard = ({data, temp, isLoading, theme, title2Size = "3em", locaPsi
         <>
         
           <div style={upperBox}>
-            <img src={renderProperWeatherImage(mainCode, weatherCodes, weatherImages)} alt="clear" />
+            <img src={renderProperWeatherImage(mainCode, weatherCodes, weatherImages)} alt="clear" style={imageStyle} />
 
             <div style={locationBox}>
               <h2 style={locationBoxH2}>{data?.name} - {data?.sys.country}</h2>
@@ -154,7 +164,7 @@ const ReUsableCard = ({data, temp, isLoading, theme, title2Size = "3em", locaPsi
              <h5 style={bottomBoxH5}>Humidity</h5>
             </div>
 
-        </div>
+          </div>
         </>
        
       }

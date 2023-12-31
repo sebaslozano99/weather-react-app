@@ -27,7 +27,6 @@ function App() {
 
 
 
-
   function handleSearch(query){
     setSearchQuery(query);
   }
@@ -154,7 +153,6 @@ function App() {
 
 
 
-
   return (
     <div className={themeMode? "App darkMode" : "App"}>
        <Nav temp={temp} onChangeTemp={changeTemp}  onSearch={handleSearch}  theme={themeMode} onChangeTheme={changeThemeMode} displaySearchBar={displaySearchBar} setDisplaySearchBar={setDisplaySearchBar} />
@@ -175,10 +173,6 @@ function App() {
 
         </Routes>
 
-        {/* <Routes>
-          <Route path="/addcities" element={<AddCities  cities={cities} onAddCity={handleAddCity} onDeleteCity={handleDeleteCity} isLoadingFourCities={isLoadingFourCities} themeMode={themeMode} handleModifyCity={handleModifyCity} lastCity={lastCity} setLastCity={setLastCity} />} ></Route>
-        </Routes>
-        */}
     </div>
   );
 }

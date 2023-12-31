@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./AddCities.css";
 import uuid from 'react-uuid';
 
@@ -6,11 +6,8 @@ const AddCities = ({cities, onAddCity, onDeleteCity, isLoadingFourCities, themeM
 
     const [inputValue, setInputValue] = useState(""); //state for cities are gona be added to the list
     const [modifying, setModifying] = useState(null); //once a card holding a city is picked, the city name will be selected in this state // once this state is different than "null" the UI will display another FORM with a different "onSubmit" function
-
     const [newCity, setNewCity] = useState(""); //the new city is the one the user will search in the inout
-    // const [lastCity, setLastCity] = useState(""); //we will store the city of the card picked up to be modified in this state
-    
-    
+    const inputEl = useRef(null);
 
     //regular function to addNewCity to the list
     function handleSubmitForm(e){
@@ -53,9 +50,15 @@ const AddCities = ({cities, onAddCity, onDeleteCity, isLoadingFourCities, themeM
         setNewCity("");
         setModifying(null);
     }
-
-
     
+    useEffect(() => {
+        inputEl.current.focus();
+        inputEl.current.setSelectionRange(0, -1); //every time the dependency re-renders component -- it will select the whole text inside input
+    }, [isLoadingFourCities])
+
+ 
+    
+
   return (
     <div className='addcitiesbox'>
 
@@ -64,12 +67,12 @@ const AddCities = ({cities, onAddCity, onDeleteCity, isLoadingFourCities, themeM
             {
             modifying ? 
                 <form onSubmit={(e) => handleModifyTheSelectedCity(e)} >
-                    <input type="text" value={newCity} onChange={(e) => setNewCity((e.target.value).toLocaleLowerCase())}  disabled={isLoadingFourCities ? true : false}  placeholder={isLoadingFourCities ? "Loading..." : "Enter New City"} />
+                    <input type="text" value={newCity} onChange={(e) => setNewCity((e.target.value).toLocaleLowerCase())}  disabled={isLoadingFourCities ? true : false}  placeholder={isLoadingFourCities ? "Loading..." : "Enter New City"} ref={inputEl} />
                     <button>Modify</button>
                 </form> 
             :
                 <form onSubmit={(e) => handleSubmitForm(e)} >
-                    <input type="text" value={inputValue} onChange={(e) => setInputValue((e.target.value).toLocaleLowerCase())}  disabled={isLoadingFourCities ? true : false} placeholder={isLoadingFourCities ? "Loading..." : "Enter New City"}  />
+                    <input type="text" value={inputValue} onChange={(e) => setInputValue((e.target.value).toLocaleLowerCase())}  disabled={isLoadingFourCities ? true : false} placeholder={isLoadingFourCities ? "Loading..." : "Enter New City"} ref={inputEl}   />
                     <button>Add City</button>
                 </form>  
             }

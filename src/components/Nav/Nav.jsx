@@ -53,7 +53,7 @@ const Nav = ({onSearch, temp, onChangeTemp, theme, onChangeTheme, displaySearchB
         <ul>
             <li><Link to="/" style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>Home</Link></li>
             <li><Link to="/AddCities" style={theme ? {color: "#fff"}: {}} onClick={handleLastSetBurgerState}>Add/Remove</Link></li>
-            <li><Link to="https://github.com/sebaslozano99" target='blank' style={theme ? {color: "#fff"}: {}} onClick={handleSetBurgerState}>Github</Link></li>
+            <li><Link to="https://github.com/sebaslozano99" target='blank' style={theme ? {color: "#fff"}: {}} onClick={() => setBurgerState(!burgerState)}>Github</Link></li>
         </ul>
 
 

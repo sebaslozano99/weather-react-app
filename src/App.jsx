@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Nav from "./components/Nav/Nav";
 import Container from "./components/Container/Container";
 import ReUsableCard from "./components/ReUsableCard";
@@ -6,23 +6,27 @@ import NoInternet from "./components/NoInternet";
 import AddCities from "./components/AddCities/AddCities";
 import "./App.css";
 import {Routes, Route} from "react-router-dom";
+import useLocalStorage from "./useLocalStorage";
 
 
 
 function App() {
   const [weatherFourCities, setWeatherFourCities] = useState([]); //We'll fetch four random cities, from "cities" state below
   const [weatherData, setWeatherData] = useState(null); //state to store the data gotten by fetching the data
-  const [searchQuery, setSearchQuery] = useState("barranquilla");
-  const [cities, setCities] = useState(["new york", "jerusalem", "moscow", "tokio"]); //initial data to display four cities apart from bigger card city
-  const [lastCity, setLastCity] = useState(""); //we will store the city of the card picked up to be modified in this state
+  const [searchQuery, setSearchQuery] = useLocalStorage("barranquilla", "mainCity");
+  const [cities, setCities] = useLocalStorage(["new york", "jerusalem", "moscow", "tokio"], "fourCities"); //initial data to display four cities apart from bigger card city
+  const [lastCity, setLastCity] = useState(""); //we will store the city of the card picked up to be modified in this state of the cities on the right
 
-
-  const [temp, setTemp] = useState(false); //state to display data in "Celsius" if false or in "Farenheit" if true;
+  const [temp, setTemp] = useLocalStorage(false, "temp"); //state to display data in "Celsius" if false or in "Farenheit" if true;
   const [isLoading, setIsLoading] = useState(false); //isLoading state for bigger and independent card
   const [isLoadingFourCities, setIsLoadingFourCities] = useState(false);  //isLoading state for smaller cards
-  const [themeMode, setThemeMode] = useState(false);
+  const [themeMode, setThemeMode] = useLocalStorage(false, "themeMode");
   const [error, setError] = useState("");
-  const [displaySearchBar, setDisplaySearchBar] = useState(false);
+  const [displaySearchBar, setDisplaySearchBar] = useState(true);
+  const prevCityBigCard = useRef(searchQuery);
+
+
+
 
   function handleSearch(query){
     setSearchQuery(query);
@@ -58,12 +62,14 @@ function App() {
   }
 
 
+
+
   //use effect for the place's weather's data on the right
   useEffect(() => {
     const controller = new AbortController();
     
     async function fetchCitiesData(){
-      for(let i = 0; i < cities.length; i++){ //while i < number of cities within the array, cause we'll display only 4 extra cities apart from the big card city
+      for(let i = 0; i < cities.length; i++){ //loop through all cities in the array
         try{
           setIsLoadingFourCities(true);                                                      
           const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cities[i]}&appid=777755690ecb518be7c3410d5ae34b00` , {signal: controller.signal});
@@ -73,7 +79,7 @@ function App() {
       
           if(data.cod === "404"){
             alert(`City ${cities[i]} not found!`);
-            if(i > 3){
+            if(i > 3){ //if city index is higher than 3 (it's the number 5th in the list) - it means we added a city to the end of the array, thus we'll have to delete only the last city that was not found 
               setCities([...cities.slice(0, -1)]);
               setWeatherFourCities([]);
             }
@@ -106,7 +112,7 @@ function App() {
       controller.abort();
     }
   
-  }, [cities, lastCity])
+  }, [cities, setCities, lastCity])
 
 
 
@@ -120,18 +126,11 @@ function App() {
         setError("");
         setIsLoading(true);
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=777755690ecb518be7c3410d5ae34b00`);
-        // console.log(res);
-
-        // if(res.status === 404) {
-        //   throw new Error("Failed to fetch");
-        // };
-
         const data = await res.json();
-        // console.log(data);
-
 
         if(data.message === "city not found"){
           alert("City not found!");
+          setSearchQuery(prevCityBigCard.current)
           throw new Error(data.message);
         }
 
@@ -139,7 +138,6 @@ function App() {
         setWeatherData(data);
       }
       catch(error){
-        // console.log(error); 
         setError(error.message);
 
       }
@@ -152,7 +150,9 @@ function App() {
     fetchingData();
 
 
-  }, [searchQuery])
+  }, [searchQuery, setSearchQuery])
+
+
 
 
   return (
